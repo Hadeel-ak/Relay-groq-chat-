@@ -1,10 +1,12 @@
-# Relay-groq-chat-
-A responsive AI chat web app powered by Groq and Qwen 3.8 27B. Features a polished chat interface, saved conversations, prompt starters, and server-side API key handling.
+# Relay
 
+A responsive chat workspace powered by Groq's Qwen 3.8 27B model. Conversations are saved in the current browser; the Groq API key stays on the local server.
 
-front face of the webapp
-<img width="1876" height="895" alt="Screenshot 2026-10-01 121830" src="https://github.com/user-attachments/assets/97db7279-b617-47d3-bb1e-0c217d2aff0d" />
+## Run locally
 
+1. Install Python 3.9 or newer.
+2. Copy `.env.example` to `.env` and set `GROQ_API_KEY` to a key from [Groq Console](https://console.groq.com/keys).
+3. Run `python server.py` from this folder.
+4. Open [http://localhost:3000](http://localhost:3000).
 
-Conversation in the webapp
-<img width="1867" height="941" alt="Screenshot 2026-10-01 121916" src="https://github.com/user-attachments/assets/a36f6e1e-4304-4166-938e-c036032550b3" />
+You can also set `GROQ_API_KEY` directly in the environment. The server reports whether the key is configured in the sidebar. Do not commit `.env`. No third-party Python packages are needed.

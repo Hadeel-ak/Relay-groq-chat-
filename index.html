@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f7f8f5" />
+    <meta name="description" content="A thoughtful AI chat workspace powered by Groq." />
+    <title>Relay — Groq Chat</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js" defer></script>
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar" aria-label="Chat navigation">
+        <div class="brand-row">
+          <a class="brand" href="/" aria-label="Relay home">
+            <span class="brand-mark" aria-hidden="true"><i data-lucide="audio-lines"></i></span>
+            <span>relay<span class="brand-period">.</span></span>
+          </a>
+          <button class="icon-button mobile-close" id="closeSidebar" type="button" aria-label="Close navigation" title="Close navigation"><i data-lucide="panel-left-close"></i></button>
+        </div>
+
+        <button class="new-chat-button" id="newChat" type="button">
+          <i data-lucide="square-pen"></i><span>New conversation</span><kbd>Ctrl K</kbd>
+        </button>
+
+        <div class="sidebar-section">
+          <div class="section-heading"><span>YOUR SPACE</span><button id="clearHistory" class="text-button" type="button" title="Clear all conversations">Clear</button></div>
+          <div class="conversation-list" id="conversationList" aria-label="Recent conversations"></div>
+          <p class="empty-history" id="emptyHistory">Your conversations will show up here.</p>
+        </div>
+
+        <div class="sidebar-bottom">
+          <div class="connection-card" id="connectionCard">
+            <span class="status-dot" id="statusDot"></span>
+            <div><strong id="connectionTitle">Checking connection</strong><span id="connectionDetail">Groq inference</span></div>
+            <button class="icon-button info-button" id="connectionInfo" type="button" title="Connection details" aria-label="Connection details"><i data-lucide="info"></i></button>
+          </div>
+          <div class="profile-row"><div class="profile-avatar">R</div><div class="profile-copy"><strong>Local workspace</strong><span>Conversations stay here</span></div><i data-lucide="shield-check" class="shield-icon" aria-label="Private"></i></div>
+        </div>
+      </aside>
+
+      <main class="main-panel">
+        <header class="topbar">
+          <div class="topbar-left"><button class="icon-button menu-button" id="openSidebar" type="button" aria-label="Open navigation" title="Open navigation"><i data-lucide="panel-left"></i></button><span class="breadcrumb">Workspace <i data-lucide="chevron-right"></i> <strong id="pageTitle">New conversation</strong></span></div>
+          <div class="topbar-right">
+            <div class="model-pill"><span class="model-sparkle"><i data-lucide="sparkles"></i></span><span><small>MODEL</small><strong>Qwen 3.8 · 27B</strong></span><i data-lucide="chevron-down" class="model-chevron"></i></div>
+            <button class="icon-button" id="clearChat" type="button" title="Clear current conversation" aria-label="Clear current conversation"><i data-lucide="trash-2"></i></button>
+          </div>
+        </header>
+
+        <section class="chat-scroll" id="chatScroll" aria-live="polite">
+          <div class="welcome-view" id="welcomeView">
+            <div class="welcome-kicker"><span class="kicker-line"></span> THINK CLEARLY, MOVE QUICKLY</div>
+            <h1>A good place to<br /><em>begin.</em></h1>
+            <p class="welcome-copy">Bring a question, a half-formed idea, or a knot you need to untangle. We’ll work through it together.</p>
+            <div class="prompt-grid" id="promptGrid">
+              <button class="prompt-card" type="button" data-prompt="Help me break a big project into a clear, manageable plan."><span class="prompt-icon mint"><i data-lucide="route"></i></span><span><strong>Make a plan</strong><small>Turn a big goal into clear next steps</small></span><i data-lucide="arrow-up-right" class="prompt-arrow"></i></button>
+              <button class="prompt-card" type="button" data-prompt="Explain a difficult idea to me in plain language, with a practical example."><span class="prompt-icon peach"><i data-lucide="lightbulb"></i></span><span><strong>Learn something</strong><small>Make a tricky idea click</small></span><i data-lucide="arrow-up-right" class="prompt-arrow"></i></button>
+              <button class="prompt-card" type="button" data-prompt="Help me write a clear, warm message. Ask me what it needs to say first."><span class="prompt-icon lilac"><i data-lucide="notebook-pen"></i></span><span><strong>Find the words</strong><small>Shape a thought into a message</small></span><i data-lucide="arrow-up-right" class="prompt-arrow"></i></button>
+              <button class="prompt-card" type="button" data-prompt="I have an idea I want to explore. Ask me a few questions to help develop it."><span class="prompt-icon butter"><i data-lucide="orbit"></i></span><span><strong>Explore an idea</strong><small>Follow a thought somewhere new</small></span><i data-lucide="arrow-up-right" class="prompt-arrow"></i></button>
+            </div>
+          </div>
+          <div class="message-list" id="messageList"></div>
+        </section>
+
+        <footer class="composer-area">
+          <form class="composer" id="chatForm">
+            <label class="sr-only" for="messageInput">Message Relay</label>
+            <textarea id="messageInput" rows="1" placeholder="Ask anything, or start with an idea..." maxlength="12000"></textarea>
+            <div class="composer-toolbar"><span class="composer-hint"><kbd>Enter</kbd> to send <span class="hint-divider">·</span> <kbd>Shift Enter</kbd> for a new line</span><div class="composer-actions"><span class="char-count" id="charCount"></span><button class="send-button" id="sendButton" type="submit" aria-label="Send message" title="Send message"><i data-lucide="arrow-up"></i></button></div></div>
+          </form>
+          <p class="disclaimer">Relay can make mistakes. Check important details.</p>
+        </footer>
+      </main>
+    </div>
+    <div class="mobile-backdrop" id="mobileBackdrop"></div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <dialog class="confirm-dialog" id="confirmDialog">
+      <form method="dialog"><div class="dialog-icon"><i data-lucide="trash-2"></i></div><h2>Clear your conversations?</h2><p>This removes all saved conversations from this browser. This can’t be undone.</p><div class="dialog-actions"><button class="dialog-cancel" value="cancel">Keep them</button><button class="dialog-danger" id="confirmClear" value="confirm">Clear all</button></div></form>
+    </dialog>
+  </body>
+</html>
